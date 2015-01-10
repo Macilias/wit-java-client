@@ -5,17 +5,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Entity {
 
-	private String value;
+	private Object value;
 	private String metadata;
 
-	public String getValue() {
+	public Object getValue() {
 		return value;
 	}
-	public void setValue(String value) {
+	public void setValue(Object value) {
 		this.value = value;
 	}
 	public String toString() {
-		return value;
+		return value == null ? null : value.toString();
 	}
 	public String getMetadata() {
 		return metadata;
