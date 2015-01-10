@@ -1,5 +1,8 @@
 package org.ml4j.wit.api.impl.json;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Entity {
 
 	private String value;
