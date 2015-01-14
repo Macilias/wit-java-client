@@ -17,6 +17,7 @@ package org.ml4j.wit.api.impl;
 
 import java.util.List;
 
+import org.ml4j.wit.api.EntityOperations;
 import org.ml4j.wit.api.IntentExtractionOperations;
 import org.ml4j.wit.api.IntentOperations;
 import org.ml4j.wit.api.Wit;
@@ -31,8 +32,11 @@ import org.springframework.social.support.ClientHttpRequestFactorySelector;
 public class WitTemplate extends AbstractOAuth2ApiBinding implements Wit {
 
 	private IntentExtractionOperations intentExtractionOperations;
-
+	
 	private IntentOperations intentOperations;
+
+	private EntityOperations entityOperations;
+
 
 	private String version = "20150109";
 
@@ -49,24 +53,30 @@ public class WitTemplate extends AbstractOAuth2ApiBinding implements Wit {
 
 	@Override
 	protected List<HttpMessageConverter<?>> getMessageConverters() {
-		List<HttpMessageConverter<?>> messageConverters = super.getMessageConverters();
+		List<HttpMessageConverter<?>> messageConverters = super
+				.getMessageConverters();
 		messageConverters.add(new ResourceHttpMessageConverter());
 		return messageConverters;
 	}
 
 	private void initSubApis(String oauthApiBaseUrl, String accessToken) {
 
-		intentExtractionOperations = new IntentExtractionTemplate(oauthApiBaseUrl, getRestTemplate(), version);
-
-		intentOperations = new IntentTemplate(oauthApiBaseUrl, getRestTemplate(), version);
-
+		intentExtractionOperations = new IntentExtractionTemplate(oauthApiBaseUrl,
+				getRestTemplate(), version);
+		
+		intentOperations = new IntentTemplate(oauthApiBaseUrl,
+				getRestTemplate(), version);
+		
+		entityOperations = new EntityTemplate(oauthApiBaseUrl,
+				getRestTemplate(), version);
 	}
 
 	// private helpers
 	private void initialize(String apiBaseUrl, String accessToken) {
 		// Wrap the request factory with a BufferingClientHttpRequestFactory so
 		// that the error handler can do repeat reads on the response.getBody()
-		super.setRequestFactory(ClientHttpRequestFactorySelector.bufferRequests(getRestTemplate().getRequestFactory()));
+		super.setRequestFactory(ClientHttpRequestFactorySelector
+				.bufferRequests(getRestTemplate().getRequestFactory()));
 		initSubApis(apiBaseUrl, accessToken);
 
 	}
@@ -75,10 +85,15 @@ public class WitTemplate extends AbstractOAuth2ApiBinding implements Wit {
 	public IntentExtractionOperations intentExtractionOperations() {
 		return intentExtractionOperations;
 	}
-
+	
 	@Override
 	public IntentOperations intentOperations() {
 		return intentOperations;
+	}
+
+	@Override
+	public EntityOperations entityOperations() {
+		return entityOperations;
 	}
 
 }

@@ -57,4 +57,9 @@ public class IntentExtractionTemplate extends AbstractWitResourceOperations impl
 		return restTemplate.postForObject(getApiResourceUrl("/speech"), request, IntentExtractionResponse.class);
 	}
 
+	@Override
+	public IntentExtractionResponse getPreviousIntentById(String id) {
+		return restTemplate.getForObject(getApiResourceUrl("/messages/" + id), IntentExtractionResponse.class);
+	}
+
 }

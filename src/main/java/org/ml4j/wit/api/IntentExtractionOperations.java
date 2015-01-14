@@ -26,6 +26,9 @@ import org.ml4j.wit.api.impl.json.IntentExtractionResponse;
 public interface IntentExtractionOperations {
 
 	public IntentExtractionResponse getIntent(String text);
+	
+	public IntentExtractionResponse getPreviousIntentById(String id);
+
 
 	public IntentExtractionResponse getIntent(File audioFile) throws IOException;
 }
