@@ -20,11 +20,9 @@ import org.springframework.web.client.RestTemplate;
 /**
  * @author Michael Lavelle
  */
-public abstract class AbstractWitResourceOperations extends
-		AbstractWitOperations {
+public abstract class AbstractWitResourceOperations extends AbstractWitOperations {
 
-	public AbstractWitResourceOperations(String apiBaseUrl,
-			RestTemplate restTemplate, String version) {
+	public AbstractWitResourceOperations(String apiBaseUrl, RestTemplate restTemplate, String version) {
 		super(apiBaseUrl, restTemplate, version);
 	}
 
@@ -32,8 +30,7 @@ public abstract class AbstractWitResourceOperations extends
 
 	protected String getApiResourceUrl(String resourcePath, String version) {
 		String resourceUrl = getApiResourceBaseUrl() + resourcePath;
-		resourceUrl = resourceUrl + getQuerySeparator(resourceUrl) + "v="
-				+ version;
+		resourceUrl = resourceUrl + getQuerySeparator(resourceUrl) + "v=" + version;
 		return resourceUrl;
 	}
 

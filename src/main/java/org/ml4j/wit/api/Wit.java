@@ -23,4 +23,6 @@ public interface Wit {
 
 	public IntentExtractionOperations intentExtractionOperations();
 
+	public IntentOperations intentOperations();
+
 }

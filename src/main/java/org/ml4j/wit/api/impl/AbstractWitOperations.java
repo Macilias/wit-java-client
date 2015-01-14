@@ -26,8 +26,7 @@ public abstract class AbstractWitOperations {
 	private String apiBaseUrl;
 	protected String version;
 
-	public AbstractWitOperations(String apiBaseUrl, RestTemplate restTemplate,
-			String version) {
+	public AbstractWitOperations(String apiBaseUrl, RestTemplate restTemplate, String version) {
 		this.restTemplate = restTemplate;
 		this.apiBaseUrl = apiBaseUrl;
 		this.version = version;

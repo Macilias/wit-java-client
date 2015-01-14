@@ -30,11 +30,9 @@ import org.springframework.web.client.RestTemplate;
 /**
  * @author Michael Lavelle
  */
-public class IntentExtractionTemplate extends AbstractWitResourceOperations
-		implements IntentExtractionOperations {
+public class IntentExtractionTemplate extends AbstractWitResourceOperations implements IntentExtractionOperations {
 
-	public IntentExtractionTemplate(String oauthApiBaseUrl,
-			RestTemplate restTemplate, String version) {
+	public IntentExtractionTemplate(String oauthApiBaseUrl, RestTemplate restTemplate, String version) {
 		super(oauthApiBaseUrl, restTemplate, version);
 	}
 
@@ -45,22 +43,18 @@ public class IntentExtractionTemplate extends AbstractWitResourceOperations
 
 	@Override
 	public IntentExtractionResponse getIntent(String message) {
-		return restTemplate.getForObject(getApiResourceUrl("/message?q="
-				+ message), IntentExtractionResponse.class);
+		return restTemplate.getForObject(getApiResourceUrl("/message?q=" + message), IntentExtractionResponse.class);
 	}
 
 	@Override
-	public IntentExtractionResponse getIntent(File audioFile)
-			throws IOException {
+	public IntentExtractionResponse getIntent(File audioFile) throws IOException {
 
 		final FileSystemResource resource = new FileSystemResource(audioFile);
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setContentLength(resource.contentLength());
 		headers.setContentType(new MediaType("audio", "wav"));
-		HttpEntity<Resource> request = new HttpEntity<Resource>(resource,
-				headers);
-		return restTemplate.postForObject(getApiResourceUrl("/speech"),
-				request, IntentExtractionResponse.class);
+		HttpEntity<Resource> request = new HttpEntity<Resource>(resource, headers);
+		return restTemplate.postForObject(getApiResourceUrl("/speech"), request, IntentExtractionResponse.class);
 	}
 
 }

@@ -18,6 +18,7 @@ package org.ml4j.wit.api.impl;
 import java.util.List;
 
 import org.ml4j.wit.api.IntentExtractionOperations;
+import org.ml4j.wit.api.IntentOperations;
 import org.ml4j.wit.api.Wit;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.ResourceHttpMessageConverter;
@@ -29,7 +30,9 @@ import org.springframework.social.support.ClientHttpRequestFactorySelector;
  */
 public class WitTemplate extends AbstractOAuth2ApiBinding implements Wit {
 
-	private IntentExtractionOperations meOperations;
+	private IntentExtractionOperations intentExtractionOperations;
+
+	private IntentOperations intentOperations;
 
 	private String version = "20150109";
 
@@ -46,16 +49,16 @@ public class WitTemplate extends AbstractOAuth2ApiBinding implements Wit {
 
 	@Override
 	protected List<HttpMessageConverter<?>> getMessageConverters() {
-		List<HttpMessageConverter<?>> messageConverters = super
-				.getMessageConverters();
+		List<HttpMessageConverter<?>> messageConverters = super.getMessageConverters();
 		messageConverters.add(new ResourceHttpMessageConverter());
 		return messageConverters;
 	}
 
 	private void initSubApis(String oauthApiBaseUrl, String accessToken) {
 
-		meOperations = new IntentExtractionTemplate(oauthApiBaseUrl,
-				getRestTemplate(), version);
+		intentExtractionOperations = new IntentExtractionTemplate(oauthApiBaseUrl, getRestTemplate(), version);
+
+		intentOperations = new IntentTemplate(oauthApiBaseUrl, getRestTemplate(), version);
 
 	}
 
@@ -63,15 +66,19 @@ public class WitTemplate extends AbstractOAuth2ApiBinding implements Wit {
 	private void initialize(String apiBaseUrl, String accessToken) {
 		// Wrap the request factory with a BufferingClientHttpRequestFactory so
 		// that the error handler can do repeat reads on the response.getBody()
-		super.setRequestFactory(ClientHttpRequestFactorySelector
-				.bufferRequests(getRestTemplate().getRequestFactory()));
+		super.setRequestFactory(ClientHttpRequestFactorySelector.bufferRequests(getRestTemplate().getRequestFactory()));
 		initSubApis(apiBaseUrl, accessToken);
 
 	}
 
 	@Override
 	public IntentExtractionOperations intentExtractionOperations() {
-		return meOperations;
+		return intentExtractionOperations;
+	}
+
+	@Override
+	public IntentOperations intentOperations() {
+		return intentOperations;
 	}
 
 }

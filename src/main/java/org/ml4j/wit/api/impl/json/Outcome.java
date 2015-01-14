@@ -16,7 +16,7 @@ public class Outcome {
 
 	@JsonProperty("intent")
 	private String intentName;
-	private Map<String, List<Entity>> entities;
+	private Map<String, List<EntityValue>> entities;
 
 	private double confidence;
 
@@ -28,11 +28,11 @@ public class Outcome {
 		this.intentName = intentName;
 	}
 
-	public Map<String, List<Entity>> getEntities() {
+	public Map<String, List<EntityValue>> getEntities() {
 		return entities;
 	}
 
-	public void setEntities(Map<String, List<Entity>> entities) {
+	public void setEntities(Map<String, List<EntityValue>> entities) {
 		this.entities = entities;
 	}
 
@@ -52,8 +52,10 @@ public class Outcome {
 		this.text = text;
 	}
 
+	@Override
 	public String toString() {
-		return intentName + ":" + metadata + entities.toString();
+		return "Outcome [text=" + text + ", metadata=" + metadata + ", intentName=" + intentName + ", entities="
+				+ entities + ", confidence=" + confidence + "]";
 	}
 
 	public String getMetadata() {

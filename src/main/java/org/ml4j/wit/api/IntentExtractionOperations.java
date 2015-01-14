@@ -27,6 +27,5 @@ public interface IntentExtractionOperations {
 
 	public IntentExtractionResponse getIntent(String text);
 
-	public IntentExtractionResponse getIntent(File audioFile)
-			throws IOException;
+	public IntentExtractionResponse getIntent(File audioFile) throws IOException;
 }

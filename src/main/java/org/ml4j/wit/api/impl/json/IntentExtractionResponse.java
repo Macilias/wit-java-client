@@ -39,8 +39,9 @@ public class IntentExtractionResponse {
 		this.messageId = messageId;
 	}
 
+	@Override
 	public String toString() {
-		return outcomes.toString();
+		return "IntentExtractionResponse [text=" + text + ", outcomes=" + outcomes + ", messageId=" + messageId + "]";
 	}
 
 }
