@@ -18,6 +18,7 @@ package org.ml4j.wit.api;
 import java.io.File;
 import java.io.IOException;
 
+import org.ml4j.wit.api.impl.json.Context;
 import org.ml4j.wit.api.impl.json.IntentExtractionResponse;
 
 /**
@@ -27,8 +28,14 @@ public interface IntentExtractionOperations {
 
 	public IntentExtractionResponse getIntent(String text);
 	
+	public IntentExtractionResponse getIntent(String text,Context context);
+	
 	public IntentExtractionResponse getPreviousIntentById(String id);
 
 
+	public IntentExtractionResponse getIntent(File audioFile,Context context) throws IOException;
+
+
 	public IntentExtractionResponse getIntent(File audioFile) throws IOException;
+
 }

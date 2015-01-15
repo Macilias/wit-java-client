@@ -78,7 +78,7 @@ public class WitTemplate extends AbstractOAuth2ApiBinding implements Wit {
 		super.setRequestFactory(ClientHttpRequestFactorySelector
 				.bufferRequests(getRestTemplate().getRequestFactory()));
 		initSubApis(apiBaseUrl, accessToken);
-
+		
 	}
 
 	@Override
