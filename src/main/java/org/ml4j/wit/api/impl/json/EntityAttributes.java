@@ -16,8 +16,6 @@ public class EntityAttributes {
 	@JsonProperty("values")
 	private List<ValueExpressions> valuesExpressions;
 
-
-
 	public String getName() {
 		return name;
 	}

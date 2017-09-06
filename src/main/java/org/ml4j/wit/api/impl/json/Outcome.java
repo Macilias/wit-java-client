@@ -11,9 +11,7 @@ public class Outcome {
 
 	@JsonProperty("_text")
 	private String text;
-
 	private String metadata;
-
 	@JsonProperty("intent")
 	private String intentName;
 	private Map<String, List<EntityValue>> entities;

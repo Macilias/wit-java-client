@@ -38,64 +38,64 @@ import org.springframework.web.client.RestTemplate;
  */
 public class IntentExtractionTemplate extends AbstractWitResourceOperations implements IntentExtractionOperations {
 
-	public IntentExtractionTemplate(String oauthApiBaseUrl, RestTemplate restTemplate, String version) {
-		super(oauthApiBaseUrl, restTemplate, version);
-	}
+    public IntentExtractionTemplate(String oauthApiBaseUrl, RestTemplate restTemplate, String version) {
+        super(oauthApiBaseUrl, restTemplate, version);
+    }
 
-	@Override
-	protected String getApiResourceBaseUrl() {
-		return getApiBaseUrl();
-	}
+    @Override
+    protected String getApiResourceBaseUrl() {
+        return getApiBaseUrl();
+    }
 
-	@Override
-	public IntentExtractionResponse getIntent(String message) {
-		return restTemplate.getForObject(getApiResourceUrl("/message?q=" + message), IntentExtractionResponse.class);
-	}
-	
-	@Override
-	public IntentExtractionResponse getIntent(String message,Context context) {
-		try {
-			return restTemplate.getForObject(new URI(getApiResourceUrl("/message?q=" + URLEncoder.encode(message,"UTF-8") + "&context=" + context.toEncodedParameterValue())), IntentExtractionResponse.class);
-		} catch (RestClientException e) {
-			throw new RuntimeException(e);
-		} catch (URISyntaxException e) {
-			throw new RuntimeException(e);
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
-		}
-	}
+    @Override
+    public IntentExtractionResponse getIntent(String message) {
+        return restTemplate.getForObject(getApiResourceUrl("/message?q=" + message), IntentExtractionResponse.class);
+    }
 
-	@Override
-	public IntentExtractionResponse getIntent(File audioFile) throws IOException {
+    @Override
+    public IntentExtractionResponse getIntent(String message, Context context) {
+        try {
+            return restTemplate.getForObject(new URI(getApiResourceUrl("/message?q=" + URLEncoder.encode(message, "UTF-8") + "&context=" + context.toEncodedParameterValue())), IntentExtractionResponse.class);
+        } catch (RestClientException e) {
+            throw new RuntimeException(e);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-		final FileSystemResource resource = new FileSystemResource(audioFile);
-		final HttpHeaders headers = new HttpHeaders();
-		headers.setContentLength(resource.contentLength());
-		headers.setContentType(new MediaType("audio", "wav"));
-		HttpEntity<Resource> request = new HttpEntity<Resource>(resource, headers);
-		return restTemplate.postForObject(getApiResourceUrl("/speech"), request, IntentExtractionResponse.class);
-	}
-	
-	@Override
-	public IntentExtractionResponse getIntent(File audioFile,Context context) throws IOException {
+    @Override
+    public IntentExtractionResponse getIntent(File audioFile) throws IOException {
 
-		final FileSystemResource resource = new FileSystemResource(audioFile);
-		final HttpHeaders headers = new HttpHeaders();
-		headers.setContentLength(resource.contentLength());
-		headers.setContentType(new MediaType("audio", "wav"));
-		HttpEntity<Resource> request = new HttpEntity<Resource>(resource, headers);
-		try {
-			return restTemplate.postForObject(new URI(getApiResourceUrl("/speech?context=" +  context.toEncodedParameterValue())), request, IntentExtractionResponse.class);
-		} catch (RestClientException e) {
-			throw new RuntimeException(e);
-		} catch (URISyntaxException e) {
-			throw new RuntimeException(e);
-		}
-	}
+        final FileSystemResource resource = new FileSystemResource(audioFile);
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentLength(resource.contentLength());
+        headers.setContentType(new MediaType("audio", "wav"));
+        HttpEntity<Resource> request = new HttpEntity<Resource>(resource, headers);
+        return restTemplate.postForObject(getApiResourceUrl("/speech"), request, IntentExtractionResponse.class);
+    }
 
-	@Override
-	public IntentExtractionResponse getPreviousIntentById(String id) {
-		return restTemplate.getForObject(getApiResourceUrl("/messages/" + id), IntentExtractionResponse.class);
-	}
+    @Override
+    public IntentExtractionResponse getIntent(File audioFile, Context context) throws IOException {
+
+        final FileSystemResource resource = new FileSystemResource(audioFile);
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentLength(resource.contentLength());
+        headers.setContentType(new MediaType("audio", "wav"));
+        HttpEntity<Resource> request = new HttpEntity<Resource>(resource, headers);
+        try {
+            return restTemplate.postForObject(new URI(getApiResourceUrl("/speech?context=" + context.toEncodedParameterValue())), request, IntentExtractionResponse.class);
+        } catch (RestClientException e) {
+            throw new RuntimeException(e);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public IntentExtractionResponse getPreviousIntentById(String id) {
+        return restTemplate.getForObject(getApiResourceUrl("/messages/" + id), IntentExtractionResponse.class);
+    }
 
 }

@@ -21,10 +21,10 @@ package org.ml4j.wit.api;
  */
 public interface Wit {
 
-	public IntentExtractionOperations intentExtractionOperations();
+    public IntentExtractionOperations intentExtractionOperations();
 
-	public IntentOperations intentOperations();
-	
-	public EntityOperations entityOperations();
+    public IntentOperations intentOperations();
+
+    public EntityOperations entityOperations();
 
 }

@@ -32,9 +32,7 @@ public interface IntentExtractionOperations {
 	
 	public IntentExtractionResponse getPreviousIntentById(String id);
 
-
 	public IntentExtractionResponse getIntent(File audioFile,Context context) throws IOException;
-
 
 	public IntentExtractionResponse getIntent(File audioFile) throws IOException;
 

@@ -22,24 +22,24 @@ import org.springframework.web.client.RestTemplate;
  */
 public abstract class AbstractWitResourceOperations extends AbstractWitOperations {
 
-	public AbstractWitResourceOperations(String apiBaseUrl, RestTemplate restTemplate, String version) {
-		super(apiBaseUrl, restTemplate, version);
-	}
+    public AbstractWitResourceOperations(String apiBaseUrl, RestTemplate restTemplate, String version) {
+        super(apiBaseUrl, restTemplate, version);
+    }
 
-	protected abstract String getApiResourceBaseUrl();
+    protected abstract String getApiResourceBaseUrl();
 
-	protected String getApiResourceUrl(String resourcePath, String version) {
-		String resourceUrl = getApiResourceBaseUrl() + resourcePath;
-		resourceUrl = resourceUrl + getQuerySeparator(resourceUrl) + "v=" + version;
-		return resourceUrl;
-	}
+    protected String getApiResourceUrl(String resourcePath, String version) {
+        String resourceUrl = getApiResourceBaseUrl() + resourcePath;
+        resourceUrl = resourceUrl + getQuerySeparator(resourceUrl) + "v=" + version;
+        return resourceUrl;
+    }
 
-	protected String getApiResourceUrl(String resourcePath) {
-		return getApiResourceUrl(resourcePath, version);
-	}
+    protected String getApiResourceUrl(String resourcePath) {
+        return getApiResourceUrl(resourcePath, version);
+    }
 
-	private String getQuerySeparator(String existingResourceUrl) {
-		return existingResourceUrl.indexOf("?") == -1 ? "?" : "&";
-	}
+    private String getQuerySeparator(String existingResourceUrl) {
+        return existingResourceUrl.indexOf("?") == -1 ? "?" : "&";
+    }
 
 }

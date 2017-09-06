@@ -16,8 +16,6 @@ public class EntityCreationRequest {
 	@JsonProperty("values")
 	private List<ValueExpressions> valuesExpressions;
 
-
-
 	public String getName() {
 		return name;
 	}

@@ -8,9 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EntityUpdateRequest {
 
-
 	private String doc;
-
 
 	@JsonProperty("values")
 	private List<ValueExpressions> valuesExpressions;

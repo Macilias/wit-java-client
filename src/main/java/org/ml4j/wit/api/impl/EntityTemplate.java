@@ -32,65 +32,61 @@ import org.springframework.web.client.RestTemplate;
  */
 public class EntityTemplate extends AbstractWitResourceOperations implements EntityOperations {
 
-	public EntityTemplate(String oauthApiBaseUrl, RestTemplate restTemplate, String version) {
-		super(oauthApiBaseUrl, restTemplate, version);
-	}
+    public EntityTemplate(String oauthApiBaseUrl, RestTemplate restTemplate, String version) {
+        super(oauthApiBaseUrl, restTemplate, version);
+    }
 
-	@Override
-	protected String getApiResourceBaseUrl() {
-		return getApiBaseUrl();
-	}
+    @Override
+    protected String getApiResourceBaseUrl() {
+        return getApiBaseUrl();
+    }
 
-	@Override
-	public List<String> getEntityNames() {
-		return restTemplate.getForObject(getApiResourceUrl("/entities"), EntityNameListResponse.class);
-	}
+    @Override
+    public List<String> getEntityNames() {
+        return restTemplate.getForObject(getApiResourceUrl("/entities"), EntityNameListResponse.class);
+    }
 
-	@Override
-	public EntityResponse getEntityByNameOrId(String entityNameOrId) {
-		return restTemplate.getForObject(getApiResourceUrl("/entities/" + entityNameOrId), EntityResponse.class);
-	}
+    @Override
+    public EntityResponse getEntityByNameOrId(String entityNameOrId) {
+        return restTemplate.getForObject(getApiResourceUrl("/entities/" + entityNameOrId), EntityResponse.class);
+    }
 
-	@Override
-	public EntityResponse createEntity(EntityCreationRequest entityAttributes) {
-		return restTemplate.postForObject(getApiResourceUrl("/entities"), entityAttributes, EntityResponse.class);
-	}
+    @Override
+    public EntityResponse createEntity(EntityCreationRequest entityAttributes) {
+        return restTemplate.postForObject(getApiResourceUrl("/entities"), entityAttributes, EntityResponse.class);
+    }
 
-	@Override
-	public void updateEntity(String entityId, EntityUpdateRequest entityUpdateRequest) {
-		restTemplate.put(getApiResourceUrl("/entities/" + entityId), entityUpdateRequest);;
-	}
+    @Override
+    public void updateEntity(String entityId, EntityUpdateRequest entityUpdateRequest) {
+        restTemplate.put(getApiResourceUrl("/entities/" + entityId), entityUpdateRequest);
+    }
 
-	@Override
-	public void createEntityValue(String entityId, ValueCreationRequest request) {
-		restTemplate.postForObject(getApiResourceUrl("/entities/" + entityId + "/values"), request, EntityResponse.class);
-	}
+    @Override
+    public void createEntityValue(String entityId, ValueCreationRequest request) {
+        restTemplate.postForObject(getApiResourceUrl("/entities/" + entityId + "/values"), request, EntityResponse.class);
+    }
 
-	@Override
-	public void addEntityExpression(String entityId, String entityValue, String expressionValue) {
-		restTemplate.postForObject(getApiResourceUrl("/entities/" + entityId + "/values/" + entityValue + "/expressions"), new ExpressionValue(expressionValue), EntityResponse.class);		
-	}
+    @Override
+    public void addEntityExpression(String entityId, String entityValue, String expressionValue) {
+        restTemplate.postForObject(getApiResourceUrl("/entities/" + entityId + "/values/" + entityValue + "/expressions"), new ExpressionValue(expressionValue), EntityResponse.class);
+    }
 
-	@Override
-	public void deleteEntityValue(String entityId, String value) {
-		restTemplate.delete(getApiResourceUrl("/entities/" + entityId + "/values/" + value));
-	}
+    @Override
+    public void deleteEntityValue(String entityId, String value) {
+        restTemplate.delete(getApiResourceUrl("/entities/" + entityId + "/values/" + value));
+    }
 
-	@Override
-	public void deleteEntityExpression(String entityId, String entityValue, String expressionValue) {
-		restTemplate.delete(getApiResourceUrl("/entities/" + entityId + "/values/" + entityValue + "/" + encode(expressionValue)));
-	}
-	
-	private String encode(String s)
-	{
-		try {
-			return URLEncoder.encode(s,"UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
-		}
-	}
+    @Override
+    public void deleteEntityExpression(String entityId, String entityValue, String expressionValue) {
+        restTemplate.delete(getApiResourceUrl("/entities/" + entityId + "/values/" + entityValue + "/" + encode(expressionValue)));
+    }
 
-	
-	
+    private String encode(String s) {
+        try {
+            return URLEncoder.encode(s, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

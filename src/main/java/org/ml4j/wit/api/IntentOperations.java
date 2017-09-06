@@ -5,8 +5,8 @@ import org.ml4j.wit.api.impl.json.IntentResponse;
 
 public interface IntentOperations {
 
-	public IntentResponse getIntentByNameOrId(String intentName);
+    public IntentResponse getIntentByNameOrId(String intentName);
 
-	public IntentListResponse getIntents();
+    public IntentListResponse getIntents();
 
 }

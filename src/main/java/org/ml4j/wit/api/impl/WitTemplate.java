@@ -31,69 +31,64 @@ import org.springframework.social.support.ClientHttpRequestFactorySelector;
  */
 public class WitTemplate extends AbstractOAuth2ApiBinding implements Wit {
 
-	private IntentExtractionOperations intentExtractionOperations;
-	
-	private IntentOperations intentOperations;
+    private IntentExtractionOperations intentExtractionOperations;
 
-	private EntityOperations entityOperations;
+    private IntentOperations intentOperations;
 
+    private EntityOperations entityOperations;
 
-	private String version = "20150109";
+    private String version = "20150109";
 
-	/**
-	 * Create a new instance of WitTemplate. This constructor creates the
-	 * WitTemplate using a given access token
-	 * 
-	 * @param accessToken
-	 */
-	public WitTemplate(String accessToken) {
-		super(accessToken);
-		initialize("https://api.wit.ai", accessToken);
-	}
+    /**
+     * Create a new instance of WitTemplate. This constructor creates the
+     * WitTemplate using a given access token
+     *
+     * @param accessToken
+     */
+    public WitTemplate(String accessToken) {
+        super(accessToken);
+        initialize("https://api.wit.ai", accessToken);
+    }
 
-	@Override
-	protected List<HttpMessageConverter<?>> getMessageConverters() {
-		List<HttpMessageConverter<?>> messageConverters = super
-				.getMessageConverters();
-		messageConverters.add(new ResourceHttpMessageConverter());
-		return messageConverters;
-	}
+    @Override
+    protected List<HttpMessageConverter<?>> getMessageConverters() {
+        List<HttpMessageConverter<?>> messageConverters = super
+                .getMessageConverters();
+        messageConverters.add(new ResourceHttpMessageConverter());
+        return messageConverters;
+    }
 
-	private void initSubApis(String oauthApiBaseUrl, String accessToken) {
+    private void initSubApis(String oauthApiBaseUrl, String accessToken) {
 
-		intentExtractionOperations = new IntentExtractionTemplate(oauthApiBaseUrl,
-				getRestTemplate(), version);
-		
-		intentOperations = new IntentTemplate(oauthApiBaseUrl,
-				getRestTemplate(), version);
-		
-		entityOperations = new EntityTemplate(oauthApiBaseUrl,
-				getRestTemplate(), version);
-	}
+        intentExtractionOperations = new IntentExtractionTemplate(oauthApiBaseUrl, getRestTemplate(), version);
 
-	// private helpers
-	private void initialize(String apiBaseUrl, String accessToken) {
-		// Wrap the request factory with a BufferingClientHttpRequestFactory so
-		// that the error handler can do repeat reads on the response.getBody()
-		super.setRequestFactory(ClientHttpRequestFactorySelector
-				.bufferRequests(getRestTemplate().getRequestFactory()));
-		initSubApis(apiBaseUrl, accessToken);
-		
-	}
+        intentOperations = new IntentTemplate(oauthApiBaseUrl, getRestTemplate(), version);
 
-	@Override
-	public IntentExtractionOperations intentExtractionOperations() {
-		return intentExtractionOperations;
-	}
-	
-	@Override
-	public IntentOperations intentOperations() {
-		return intentOperations;
-	}
+        entityOperations = new EntityTemplate(oauthApiBaseUrl, getRestTemplate(), version);
+    }
 
-	@Override
-	public EntityOperations entityOperations() {
-		return entityOperations;
-	}
+    // private helpers
+    private void initialize(String apiBaseUrl, String accessToken) {
+        // Wrap the request factory with a BufferingClientHttpRequestFactory so
+        // that the error handler can do repeat reads on the response.getBody()
+        super.setRequestFactory(ClientHttpRequestFactorySelector.bufferRequests(getRestTemplate().getRequestFactory()));
+        initSubApis(apiBaseUrl, accessToken);
+
+    }
+
+    @Override
+    public IntentExtractionOperations intentExtractionOperations() {
+        return intentExtractionOperations;
+    }
+
+    @Override
+    public IntentOperations intentOperations() {
+        return intentOperations;
+    }
+
+    @Override
+    public EntityOperations entityOperations() {
+        return entityOperations;
+    }
 
 }

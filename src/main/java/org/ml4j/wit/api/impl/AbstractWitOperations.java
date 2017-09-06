@@ -22,18 +22,18 @@ import org.springframework.web.client.RestTemplate;
  */
 public abstract class AbstractWitOperations {
 
-	protected final RestTemplate restTemplate;
-	private String apiBaseUrl;
-	protected String version;
+    protected final RestTemplate restTemplate;
+    private String apiBaseUrl;
+    protected String version;
 
-	public AbstractWitOperations(String apiBaseUrl, RestTemplate restTemplate, String version) {
-		this.restTemplate = restTemplate;
-		this.apiBaseUrl = apiBaseUrl;
-		this.version = version;
-	}
+    public AbstractWitOperations(String apiBaseUrl, RestTemplate restTemplate, String version) {
+        this.restTemplate = restTemplate;
+        this.apiBaseUrl = apiBaseUrl;
+        this.version = version;
+    }
 
-	protected String getApiBaseUrl() {
-		return apiBaseUrl;
-	}
+    protected String getApiBaseUrl() {
+        return apiBaseUrl;
+    }
 
 }

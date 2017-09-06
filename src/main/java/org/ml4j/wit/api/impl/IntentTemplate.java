@@ -25,23 +25,23 @@ import org.springframework.web.client.RestTemplate;
  */
 public class IntentTemplate extends AbstractWitResourceOperations implements IntentOperations {
 
-	public IntentTemplate(String oauthApiBaseUrl, RestTemplate restTemplate, String version) {
-		super(oauthApiBaseUrl, restTemplate, version);
-	}
+    public IntentTemplate(String oauthApiBaseUrl, RestTemplate restTemplate, String version) {
+        super(oauthApiBaseUrl, restTemplate, version);
+    }
 
-	@Override
-	protected String getApiResourceBaseUrl() {
-		return getApiBaseUrl();
-	}
+    @Override
+    protected String getApiResourceBaseUrl() {
+        return getApiBaseUrl();
+    }
 
-	@Override
-	public IntentResponse getIntentByNameOrId(String name) {
-		return restTemplate.getForObject(getApiResourceUrl("/intents/" + name), IntentResponse.class);
-	}
+    @Override
+    public IntentResponse getIntentByNameOrId(String name) {
+        return restTemplate.getForObject(getApiResourceUrl("/intents/" + name), IntentResponse.class);
+    }
 
-	@Override
-	public IntentListResponse getIntents() {
-		return restTemplate.getForObject(getApiResourceUrl("/intents"), IntentListResponse.class);
-	}
+    @Override
+    public IntentListResponse getIntents() {
+        return restTemplate.getForObject(getApiResourceUrl("/intents"), IntentListResponse.class);
+    }
 
 }

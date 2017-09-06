@@ -7,38 +7,38 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Expression {
 
-	private String id;
-	private String body;
+    private String id;
+    private String body;
 
-	private List<ExpressionEntity> entities;
+    private List<ExpressionEntity> entities;
 
-	public List<ExpressionEntity> getEntities() {
-		return entities;
-	}
+    public List<ExpressionEntity> getEntities() {
+        return entities;
+    }
 
-	public void setEntities(List<ExpressionEntity> entities) {
-		this.entities = entities;
-	}
+    public void setEntities(List<ExpressionEntity> entities) {
+        this.entities = entities;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getBody() {
-		return body;
-	}
+    public String getBody() {
+        return body;
+    }
 
-	public void setBody(String body) {
-		this.body = body;
-	}
+    public void setBody(String body) {
+        this.body = body;
+    }
 
-	@Override
-	public String toString() {
-		return "Expression [id=" + id + ", body=" + body + ", entities=" + entities + "]";
-	}
+    @Override
+    public String toString() {
+        return "Expression [id=" + id + ", body=" + body + ", entities=" + entities + "]";
+    }
 
 }
